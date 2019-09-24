@@ -16,6 +16,13 @@ public class Main {
         //Conexión a la página digitada a través de la librería Jsoup, creando una conexión HTTP.
         Connection.Response conexion = Jsoup.connect(pagina).execute();
 
+        //a) Indicar la cantidad de líneas del recurso retornado.
+        //body(): Se obtiene el cuerpo del recurso como un string.
+        //length: Se muestra el tamaño del cuerpo después de la función split("\n") haber dividido el cuerpo por cada salto de línea.
+        String cuerpo = conexion.body();
+        int cantLineas = cuerpo.split("\n").length;
+        System.out.println("\na) La cantidad de líneas del recurso retornado es: "+cantLineas);
+
     }
 
 }
