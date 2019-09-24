@@ -2,6 +2,8 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.FormElement;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -34,8 +36,27 @@ public class Main {
         System.out.println("\nb) La cantidad de párrafos que contiene el documento HTML es: "+cantParrafos + "\n");
 
         //c) Indicar la cantidad de imágenes <img> dentro de los párrafos del HTML.
-        //select(): filtra seleccionando  desde un elemento en específico, en este caso los párrafos y busca dentro de ellos <img> que es la etiqueta de imágenes.
+        //select(): Filtra seleccionando  desde un elemento en específico, en este caso los párrafos y busca dentro de ellos <img> que es la etiqueta de imágenes.
         System.out.println("c) La cantidad de imágenes dentro de los párrafos de HTML es: " + docHTML.select("p img").size());
+
+        //d) Indicar la cantidad de formularios <form> que contiene el HTML categorizado por el método POST o GET.
+        //form.attr: Facilita para poder tomar un atributo que tenga una etiqueta <form>.
+        //equalsIgnoreCase: Facilita para poder ver a qué String está igualado sin tomar en cuenta mayúscula o minúscula.
+        //FormElement: Objeto para los formularios.
+        //getElementsByTag: Obtiene todos los elementos con el nombre de la etiqueta específica.
+        int[] cantGetPost = new int[]{0,0};
+        for(FormElement form : docHTML.getElementsByTag("form").forms()){
+            if(form.attr("method").equals("get")){
+                cantGetPost[0]++;
+            }
+            if(form.attr("method").equalsIgnoreCase("post")){
+                cantGetPost[1]++;
+            }
+        }
+
+        System.out.println("\n\nd) " +
+                "\n     La cantidas de formularios que usan el método GET es: " + cantGetPost[0] +
+                "\n     La cantidad de formularios que usan el método POST es: " + cantGetPost[1]);
 
 
     }
