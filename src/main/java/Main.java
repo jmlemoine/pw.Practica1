@@ -33,6 +33,10 @@ public class Main {
         int cantParrafos = docHTML.getElementsByTag("p").size();
         System.out.println("\nb) La cantidad de párrafos que contiene el documento HTML es: "+cantParrafos + "\n");
 
+        //c) Indicar la cantidad de imágenes <img> dentro de los párrafos del HTML.
+        //select(): filtra seleccionando  desde un elemento en específico, en este caso los párrafos y busca dentro de ellos <img> que es la etiqueta de imágenes.
+        System.out.println("c) La cantidad de imágenes dentro de los párrafos de HTML es: " + docHTML.select("p img").size());
+
 
     }
 
