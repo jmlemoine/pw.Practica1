@@ -2,6 +2,7 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.nodes.FormElement;
 
 import java.io.IOException;
@@ -57,6 +58,23 @@ public class Main {
         System.out.println("\n\nd) " +
                 "\n     La cantidas de formularios que usan el método GET es: " + cantGetPost[0] +
                 "\n     La cantidad de formularios que usan el método POST es: " + cantGetPost[1]);
+
+
+        int contInput = 1;
+        int countForm = 1;
+
+        //e) Para cada formulario mostrar los campos de tipo input y su respectivo tipo que contiene en el documento HTML.
+        System.out.println("\n\ne) Inputs dentro de los forms con sus tipos: ");
+        System.out.println("Número del Formulario\t| Número del Input\t| Tipo del Input ");
+        System.out.println("------------------------------------------------------------");
+        for(FormElement form : docHTML.getElementsByTag("form").forms()){
+            for(Element inputsEncontrados: form.getElementsByTag("input")){
+                System.out.println("    Formulario #" + countForm + "\t\t\t\tInput #" + contInput + "\t\t\t" + inputsEncontrados.attr("type"));
+                contInput++;
+
+            }
+            countForm++;
+        }
 
 
     }
