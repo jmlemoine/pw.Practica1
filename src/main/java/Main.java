@@ -4,6 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.FormElement;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -75,6 +76,35 @@ public class Main {
             }
             countForm++;
         }
+
+        int contForm = 1;
+        Document docNuevoImprimir;
+
+        System.out.println("\n\nf) La petición al servidor con los parámetros y el header dado: ");
+        for(Element form: docHTML.getElementsByTag("form").forms()){
+            Elements tipoMetodoPost = form.getElementsByAttributeValueContaining("method", "post");
+            if(tipoMetodoPost.isEmpty()){
+                System.out.println("No existe ningún form con el método POST. ");
+            }
+            for(Element elementPost : tipoMetodoPost){
+                try{
+                    System.out.println("El formulario #" + contForm + " encontrado: ");
+                    String conseguirURLAbsoluta = elementPost.absUrl("action");
+                    docNuevoImprimir = Jsoup.connect(conseguirURLAbsoluta).data("asignatura", "practica1")
+                            .header("matricula", "20140795").post();
+                    System.out.println("Resultado: ");
+                    System.out.println("\n\n");
+                    System.out.println(docNuevoImprimir.body().toString());
+
+                }
+                catch (IOException e){
+                    e.printStackTrace();
+
+                }
+            }
+            contForm++;
+        }
+
 
 
     }
